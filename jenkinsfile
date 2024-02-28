@@ -1,0 +1,34 @@
+pipeline
+{
+   agent any
+    
+   tools
+   { 
+       maven "maven-3"
+   }
+   stages
+   {
+      stage('continousDownload')
+       {
+         steps
+           { 
+              git 'https://github.com/sureshreddy2/maven-app.git'
+            }
+        }
+           stage ('continousbuild')
+            {
+              steps
+                {
+                  sh 'mvn clean package'
+                }
+            }
+              stage('continousdeployment')
+                {
+                  steps
+                    {
+                      sh 'scp  /var/lib/jenkins/workspace/project3/webapp/target/maven-web-app.war ubuntu@172.31.34.81:/var/lib/tomcat9/webapps/maven.war'
+                    }
+                }
+    }
+}
+
