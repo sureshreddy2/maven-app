@@ -26,7 +26,7 @@ pipeline
                 {
                   steps
                     {
-                      sh 'scp  /var/lib/jenkins/workspace/project3/webapp/target/maven-web-app.war ubuntu@172.31.34.81:/var/lib/tomcat9/webapps/maven.war'
+                      deploy adapters: [tomcat9(credentialsId: 'decd6e8c-a0ea-4c90-a43c-3aa8389247d0', path: '', url: 'http://13.233.19.205:8080/')], contextPath: 'maven', war: '**/*.war'
                     }
                 }
     }
